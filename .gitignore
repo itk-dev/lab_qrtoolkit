@@ -1,0 +1,4 @@
+.idea/
+*.pyc
+src/itk_qr/mydatabase
+*.log

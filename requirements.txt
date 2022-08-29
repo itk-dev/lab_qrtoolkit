@@ -1,0 +1,2 @@
+django-qr-toolkit-core
+gunicorn
