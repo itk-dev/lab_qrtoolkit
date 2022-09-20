@@ -51,16 +51,23 @@ INSTALLED_APPS = [
     'reversion',  # Adds history to certain models # TODO delete?
     'django_filters',  # This adds filters to the rest api
     'rest_framework',  # This will enable the api
+    'rest_framework.authtoken', # API will require a token
     'qrtoolkit_core',
 ]
 
+
+"""
+Permissions guide
+https://www.django-rest-framework.org/api-guide/permissions/
+"""
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 25,
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication' # require token. Use HTTPS!
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated', # strict.
     ],
 }
 

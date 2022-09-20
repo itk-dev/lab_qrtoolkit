@@ -19,6 +19,6 @@ from qrtoolkit_core import urls as qr_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/', include(qr_urls.api_routes)),
+    path('api/', include(qr_urls.api_routes)),
     path('', include(qr_urls.code_routes))
-] # TODO make auth requirement /admin only accessible from AAK IP address range?
+]
