@@ -1,0 +1,12 @@
+services:
+  init_django:
+    build: .
+    command: init.sh
+
+  qrtoolkit:
+    image: qrtoolkit
+    ports:
+      - 8090:8090
+    depends_on:
+      init_django:
+        condition: service_completed_successfully
