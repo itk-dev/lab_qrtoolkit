@@ -4,7 +4,6 @@ https://github.com/lab9k/qrtoolkit-core
 Tested with Django 3.0.11
 Adapted for Docker deployment
 
-# For operations/support
 ## First Deploy container
 1. Build the docker image
 ```bash
@@ -30,36 +29,16 @@ docker exec qrtoolkitpython manage.py createsuperuser --noinput
 6. Done. Open your browser and access the admin interface
 [https://qr.itkdigital.etek.dk/admin/](https://qr.itkdigital.etek.dk/admin/)
 
-## Service
+## Support / Service
 See API logs in docker container:
 ```bash
 docker exec qrtoolkit tail -f qr_django.log 
 ```
-
-# For the developer
-## Install
-Anaconda/venv, python version 3.10 is working.
-pip install -r requirements.txt 
-## Setup and development
-Check that base.py setup is adapted to your development environment.
-
-# Testing
-For testing django in your local development environment, start the server:
-`python manage.py runserver`
-or 
-```
-$ nohup python manage.py runserver &
-$ jobs -l
-```
-Open localhost:<port>/admin
-
-## Testing in Docker
-For Django to allow localhost to connect (and avoid HTTP 400 Bad Request), override ALLOWED_HOSTS in Dockerfile:
+See Gunicorn logs:
 ```bash
-docker run -it -d -p 8090:8090 -e ALLOWED_HOSTS=localhost --name qrtoolkit qrtoolkit 
+docker logs -f qrtoolkit
 ```
-
-# How to assign API access token to user (manually)
+### How to assign API access token to user (manually)
 Before using the API, a token must be generated.
 Inside Docker, open Django shell and run the following:
 ```bash
@@ -82,8 +61,33 @@ print(token)
 # >>> 7cc521475b91cbe88d9420a4cd43d14b1fed76f5
 ```
 
-# API request example
+### API request example
 Use a token to GET on api
 ```bash
 curl -X GET http://localhost:8090/api/qrcodes/ -H 'Authorization: Token 7cc521475b91cbe88d9420a4cd43d14b1fed76f5'
+```
+
+
+# Development
+## Install
+Anaconda/venv, python version 3.10 is working.
+
+pip install -r requirements.txt 
+## Django configuration
+Check that base.py setup is adapted to your development environment.
+
+# Testing
+For testing django in your local development environment, start the server:
+`python manage.py runserver`
+or 
+```
+$ nohup python manage.py runserver &
+$ jobs -l
+```
+Open localhost:<port>/admin
+
+## Testing in Docker
+For Django to allow localhost to connect (and avoid HTTP 400 Bad Request), override ALLOWED_HOSTS in Dockerfile:
+```bash
+docker run -it -d -p 8090:8090 -e ALLOWED_HOSTS=localhost --name qrtoolkit qrtoolkit 
 ```
