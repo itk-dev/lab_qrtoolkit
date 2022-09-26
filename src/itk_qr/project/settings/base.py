@@ -175,7 +175,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
+            'filename': 'qr_django.log',
             'formatter': 'verbose'
         },
     },

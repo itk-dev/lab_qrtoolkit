@@ -1,19 +1,11 @@
 # QR TOOLKIT
 
 https://github.com/lab9k/qrtoolkit-core
-tested med Django 3.0.11
+Tested with Django 3.0.11
+Adapted for Docker deployment
 
-# Install
-Anaconda/venv
-pip install django-qr-toolkit-core 
-
-# Setup
-Skal udføres første gang for at kunne bruge systemet
--udfyld konfigurationsfiler
--python manage.py migrate
--python manage.py createsuperuser
-
-# First Deploy container
+# For operations/support
+## First Deploy container
 1. Build the docker image
 ```bash
 docker build -t qrtoolkit .
@@ -22,41 +14,52 @@ docker build -t qrtoolkit .
 ```bash
 docker run -v -it -d -p 8090:8090 --name qrtoolkit qrtoolkit
 ```
-3. (Optional 1 of 2) Create static files in container "/var/www/qrtoolkit/static".
-
+3. Create static files for HTML "/var/www/qrtoolkit/static" (the path is defined in base.py and Dockerfile).
 ```bash
 docker exec qrtoolkit python manage.py collectstatic
 ```
-4. (Optional 2 of 2) Copy static files from container to host webserver static files dir.
+4. Run migrations
 ```bash
-docker cp qrtoolkit:/var/www/qrtoolkit <path_to_static_files_dir>
+docker exec qrtoolkit python manage.py migrate
 ```
-5. Open your browser and access the admin interface
+5. Create superuser for Django admin interface
+```bash
+docker exec qrtoolkitpython manage.py createsuperuser --noinput
+```
+
+6. Done. Open your browser and access the admin interface
 [https://qr.itkdigital.etek.dk/admin/](https://qr.itkdigital.etek.dk/admin/)
 
+## Service
+See API logs in docker container:
+```bash
+docker exec qrtoolkit tail -f qr_django.log 
+```
+
+# For the developer
+## Install
+Anaconda/venv, python version 3.10 is working.
+pip install -r requirements.txt 
+## Setup and development
+Check that base.py setup is adapted to your development environment.
 
 # Testing
+For testing django in your local development environment, start the server:
 `python manage.py runserver`
-eller 
+or 
 ```
 $ nohup python manage.py runserver &
 $ jobs -l
 ```
-Gå til localhost:xxxx/admin
+Open localhost:<port>/admin
 
-# Testing in Docker
+## Testing in Docker
 For Django to allow localhost to connect (and avoid HTTP 400 Bad Request), override ALLOWED_HOSTS in Dockerfile:
 ```bash
 docker run -it -d -p 8090:8090 -e ALLOWED_HOSTS=localhost --name qrtoolkit qrtoolkit 
 ```
 
-# Logs
-See API logs in docker container, e.g.:
-```bash
-docker exec qrtoolkit tail -f mysite.log 
-```
-
-# How to assign API token to user (manually)
+# How to assign API access token to user (manually)
 Before using the API, a token must be generated.
 Inside Docker, open Django shell and run the following:
 ```bash
