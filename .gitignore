@@ -2,5 +2,7 @@
 *.pyc
 src/itk_qr/mydatabase
 *.log
-.env.docker
+.env.docker.local
 *.local
+static
+
