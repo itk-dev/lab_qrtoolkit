@@ -30,7 +30,7 @@ except KeyError as e:
 DEBUG = bool(os.getenv('DJANGO_DEBUG', False))
 
 try:
-    ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]] # TODO set til ".qr.itkdigital.etek.dk" ?
+    ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 
     # The leading dot (.) is a subdomain wildcard, allowing both www.qr.itkdigital and qr.itkdigital
 except KeyError as e:
