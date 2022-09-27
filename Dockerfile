@@ -3,7 +3,8 @@ FROM python:3.8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN useradd --create-home snake \
+RUN addgroup --gid 1042 snake \
+ && useradd --create-home --uid 1042 --gid 1042 snake \
  && mkdir -p /var/www/qrtoolkit/static \
  && chown -R snake /var/www/qrtoolkit/*
 

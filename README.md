@@ -13,17 +13,17 @@ docker compose up --detach --build
 
 2. Create static files for HTML "/var/www/qrtoolkit/static" (the path is defined in base.py and Dockerfile).
 ```sh
-docker compose exec qrtoolkit python manage.py collectstatic
+docker compose exec --user snake qrtoolkit python manage.py collectstatic
 ```
 
 3. Run migrations
 ```sh
-docker compose exec qrtoolkit python manage.py migrate
+docker compose exec --user snake qrtoolkit python manage.py migrate
 ```
 
 4. Create superuser for Django admin interface
 ```sh
-docker compose exec qrtoolkit python manage.py createsuperuser --noinput
+docker compose exec --user snake qrtoolkit python manage.py createsuperuser
 ```
 
 5. Done. Open your browser and access the admin interface
