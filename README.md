@@ -33,7 +33,7 @@ docker compose exec --user snake qrtoolkit python manage.py createsuperuser
 
 See API logs in docker container:
 ```sh
-docker exec qrtoolkit python tail -f qr_django.log 
+docker exec qrtoolkit tail -f qr_django.log 
 ```
 
 See Gunicorn logs:
