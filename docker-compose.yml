@@ -18,9 +18,9 @@ services:
       - SECRET_KEY=12345678
       - ALLOWED_HOSTS=qrtoolkit.local.itkdev.dk
     volumes:
-      - ${PWD}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf:ro
-      - ${PWD}/src:/home/snake/src:delegated
-      - ${PWD}/static:/var/www/qrtoolkit/static:delegated
+      - ${PWD}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/src:/home/snake/src
+      - ${PWD}/static:/var/www/qrtoolkit/static
 
   nginx:
     image: nginx:latest
@@ -32,8 +32,8 @@ services:
     ports:
       - '80'
     volumes:
-      - ${PWD}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf:ro
-      - ${PWD}/static:/var/www/qrtoolkit/static:delegated
+      - ${PWD}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/static:/var/www/qrtoolkit/static
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=frontend"
